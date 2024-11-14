@@ -111,7 +111,7 @@ const HomePage = () => {
     ScrollTrigger.create({
       trigger: '.homepageApps', //滚动完二屏视口固定
       start: 'top top', //二屏顶部开始固定
-      end: '+=754px', //结束固定滚动位置
+      end: '+=89%', //结束固定滚动位置
       pin: true, //开启固定
       pinSpacing: false, //禁用固定时的额外空白
       // markers: true, //是否显示开始结束点标线
@@ -124,6 +124,34 @@ const HomePage = () => {
           const scaleValue = 1 - (progress - 0.5) * 0.08;  //根据进度缩放，最大为0.98
           gsap.to(".robotImg", { scale: scaleValue });  //滚动进度大于0.5时，按进度计算缩放值
         }
+      },
+    })
+
+    /**四屏滚动翻滚特效 */
+    ScrollTrigger.create({
+      trigger: '.agentRobot', //触发元素
+      start: 'top bottom', //四屏顶部开始
+      end: '+=90%', //结束固定滚动位置
+      scrub: true, //启用滚动同步动画
+      // markers: true, //是否显示标记线
+      onUpdate: (self) => { //回调函数监听滚动进度
+        const progress = self.progress.toFixed(3)
+        gsap.to('.agentbotA', {
+          scaleX: 0.8 + 0.2*progress, //缩放从0.8 ----> 1
+          scaleY: 0.8 + 0.2*progress,
+          rotateY: 30 - 30*progress, //旋转从30deg ------> 0deg
+          willChange: 'transform', //性能优化 不涉及复杂一般可以不做 提前告知浏览器下一步动作
+          transformOrigin: 'center center',
+          transformStyle: 'preserve-3d', //保持3D转换
+        })
+        gsap.to('.agentbotB', {
+          scaleX: 0.8 + 0.2*progress,
+          scaleY: 0.8 + 0.2*progress,
+          rotateY: -30 + 30*progress, //旋转从-30deg ----> 0
+          willChange: 'transform',
+          transformOrigin: 'center center',
+          transformStyle: 'preserve-3d',
+        })
       }
     })
   }, { dependencies: [], scope: homepageContent, revertOnUpdate: false });
@@ -241,11 +269,11 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <div className="homepage_agentrobot">
+      <div className={classnames("homepage_agentrobot", 'agentRobot')}>
         <div className="homepage_agentrobot_center">
           <div className="homepage_agentrobot_agentrobotimg">
-            <div className="homepage_agentrobot_agent"></div>
-            <div className="homepage_agentrobot_robot">
+            <div className={classnames("homepage_agentrobot_agent", 'agentbotA')}></div>
+            <div className={classnames("homepage_agentrobot_robot", 'agentbotB')}>
               <div className="homepage_agentrobot_robot_top">
                 <div className="homepage_agentrobot_robot_top_title">智能设备/机器人交互</div>
                 <div className="homepage_agentrobot_robot_top_des">基于大模型的深度学习和自然语言处理能力，实现智能穿戴设备对话式交互。语义感知AI交互体验，成为用户<span>真正的智能伴侣</span></div>

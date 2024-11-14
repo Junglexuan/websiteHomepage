@@ -502,6 +502,8 @@
         background: url(../../../public/images/agentimg.png) 100% 100%;
         background-size: contain;
         background-repeat: no-repeat;
+        /* 三屏图片居中展示  */
+        margin-bottom: 80px;
         transform: translateX(-20px);
         @media screen and (max-width: 600px) {
           width: 100%;
@@ -592,6 +594,8 @@
     display: flex;
     margin-bottom: 100px;
     gap: 40px;
+    transform-style: preserve-3d;
+    transform: perspective(1200px);
     @media screen and (max-width: 600px) {
       display: flex;
       flex-direction: column-reverse;
