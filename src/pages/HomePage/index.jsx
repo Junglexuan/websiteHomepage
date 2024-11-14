@@ -5,24 +5,26 @@ import { MenuOutlined } from '@ant-design/icons';
 import classnames from 'classnames';
 import { items, } from './utils';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap-trial/ScrollTrigger';
+import { ScrollSmoother } from 'gsap-trial/ScrollSmoother';
 import { useGSAP } from "@gsap/react";
 import ParticleEffect from './component/Particle';
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
 
 const HomePage = () => {
   const [showService, setShowService] = useState(false)
   const [hasScrolledOneScreen, setHasScrolledOneScreen] = useState(false);
-  const quicklyContent = useRef(); //一屏外部整个内容
+  const homepageContent = useRef(); //整个容器
   const fixedElementRef = useRef(); //需要滚动固定的顶部导航
   const robotImg = useRef(null); // 引用图片元素
-  const appsCenter = useRef();
+  // const appsCenterContent = useRef(); //二屏容器
   // const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const fixedElement = fixedElementRef.current; //获取页面和固定元素
     const pageHeight = document.documentElement.scrollHeight; //获取面板的高度
-    //监听滚动事件
+    //滚动监听导航栏位置固定
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const maxScroll = pageHeight - window.innerHeight; //最大滚动距离
@@ -36,12 +38,13 @@ const HomePage = () => {
         zIndex: 100,
       });
 
-      if (scrollPosition + 200 >= screenHeight) { //判断是否已经滚动超过一屏
+      if (scrollPosition + 200 >= screenHeight) { //判断是否已经滚动超过一屏(+100是因为整体都向上移动了100px)
         setHasScrolledOneScreen(true);
       } else {
         setHasScrolledOneScreen(false);
       }
     };
+    //滚动监听二屏容器滚动进度 旋转跟随二屏滚动进度
     const cardHandleScroll = () => {
       // 获取第二屏的高度
       const secondScreen = document.getElementById('secondScreen');
@@ -69,7 +72,7 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    if (fixedElementRef.current) {
+    if (fixedElementRef.current) { //导航宽度随滚动位置宽度变化
       if (hasScrolledOneScreen) {
         gsap.to(fixedElementRef.current, { width: '420px', duration: 1 }); //使用GSAP动画改变元素的宽度
       } else {
@@ -79,22 +82,10 @@ const HomePage = () => {
   }, [hasScrolledOneScreen]);
 
   useGSAP(() => {
-    // const boxes = gsap.utils.toArray('.box');
-    // boxes.forEach((box) => {
-    // gsap.to('.quicklyTop', {
-    //   y: -40,
-    //   scrollTrigger: {
-    //     trigger: '.quicklyTop',
-    //     start: 'bottom bottom',
-    //     end: 'top 20%',
-    //     scrub: true,
-    //     // markers: true,
-    //   },
-    // });
-    // });
+    gsap.config({
+      trialWarn: false,
+    });
 
-    // const boxes = gsap.utils.toArray('.box');
-    // console.log('boxes: ', boxes);
     gsap.to('.quicklyTop', { y: -40, })
     gsap.to('.quicklyBtn', { y: -40, })
     gsap.timeline()
@@ -115,35 +106,53 @@ const HomePage = () => {
         ease: 'power1.inOut', //使用缓动函数
         willChange: 'transform',
       })
-  }, { dependencies: [], scope: quicklyContent, revertOnUpdate: false });
+
+    /**监听二三屏滚动时的一个视口固定及内屏被盖的缩放 */
+    ScrollTrigger.create({
+      trigger: '.homepageApps', //滚动完二屏视口固定
+      start: 'top top', //二屏顶部开始固定
+      end: '+=754px', //结束固定滚动位置
+      pin: true, //开启固定
+      pinSpacing: false, //禁用固定时的额外空白
+      // markers: true, //是否显示开始结束点标线
+      willChange: 'transform', //给浏览器设置提前需要变换动画的属性类似反应时间
+      onUpdate: (self) => { //回调函数监听滚动进度
+        const progress = self.progress
+        if (progress < 0.5) { //根据滚动进度调整图片的缩放
+          gsap.to('.robotImg', { scale: 1 });  //滚动进度小于0.5时，缩放保持为1
+        } else {
+          const scaleValue = 1 - (progress - 0.5) * 0.08;  //根据进度缩放，最大为0.98
+          gsap.to(".robotImg", { scale: scaleValue });  //滚动进度大于0.5时，按进度计算缩放值
+        }
+      }
+    })
+  }, { dependencies: [], scope: homepageContent, revertOnUpdate: false });
 
   const setServiceHandle = () => {
     setShowService(!showService)
   }
-  const robotImgRightMouseEnter = () => {
-    // 当鼠标悬停时，触发动画
-    gsap.to('.robotImgRight', {
-      y: -10,
+  const robotImgRightMouseEnter = (e) => { //当鼠标悬停时，触发动画
+    gsap.to(e.target, {
+      y: -10, //上移10像素
       scale: 1.03, //放大 1.03 倍
       rotateY: 4,
-      ease: "power2.out", //缓动效果
+      ease: 'power2.out', //缓动效果
       willChange: 'transform',
     });
   };
 
-  const robotImgRightMouseLeave = () => {
-    // 当鼠标离开时，恢复到原来的状态
-    gsap.to('.robotImgRight', {
-      y: 0,
+  const robotImgRightMouseLeave = (e) => { //当鼠标离开时，恢复到原来的状态
+    gsap.to(e.target, {
+      y: 0, //恢复最初位置
       scale: 1, //恢复原始大小
       rotateY: 0,
       ease: "power2.out", //缓动效果
     });
   };
   return (
-    <div className='homepage'>
+    <div className='homepage' ref={homepageContent}>
       <div className='homepage_quickly'>
-        <div className='homepage_quickly_center' ref={quicklyContent}>
+        <div className='homepage_quickly_center'>
           <div className={classnames('homepage_quickly_top', 'homepage_quickly_topmin', 'quicklyTop')} ref={fixedElementRef}>
             <div className='homepage_quickly_topleft'></div>
             <div className='homepage_quickly_right'>
@@ -197,29 +206,33 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <div id="secondScreen" className='homepage_apps' style={{ position: 'relative' }}>
+      <div id="secondScreen" className={classnames('homepage_apps', 'homepageApps')} style={{ position: 'relative' }}>
         <ParticleEffect />
-        <div className='homepage_apps_center' ref={appsCenter}>
+        <div className={classnames('homepage_apps_center')}>
           <div className='homepage_apps_top'>
             <span className='homepage_apps_top_ai'>创造属于你的AI应用</span>
             <span className='homepage_apps_top_easy'>一站式AI智能体搭建，轻松玩转和运营AIGC激发无限潜能</span>
           </div>
-          <div className="homepage_apps_top_robotimg" ref={robotImg}>
+          <div className={classnames("homepage_apps_top_robotimg", 'robotImg')} ref={robotImg}>
             <div className="homepage_apps_top_robotimg_left">
               <span className="homepage_apps_top_robotimg_left_span">特定领域的</span>
               <span className="homepage_apps_top_robotimg_left_title">智能对话机器人</span>
               <span className="homepage_apps_top_robotimg_left_des">通过可视化的提示词编排和数据集嵌入，零代码即可快速构建对话机器人或AI助理，并可持续优化对话策略，革新人机交互体验</span>
             </div>
-            <div className={classnames('homepage_apps_top_robotimg_right', 'robotImgRight')} onMouseEnter={robotImgRightMouseEnter}
-              onMouseLeave={robotImgRightMouseLeave}></div>
+            <div
+              className={classnames('homepage_apps_top_robotimg_right', 'robotImgRight')}
+              onMouseEnter={(e) => robotImgRightMouseEnter(e)}
+              onMouseLeave={(e) => robotImgRightMouseLeave(e)}></div>
           </div>
         </div>
       </div>
-      <div className='homepage_agent'>
-        <ParticleEffect style={{ position: 'absolute', top: 0, left: 0 }} />
-        <div className='homepage_agent_center'>
-          <div className="homepage_agent_agentimg">
-            <div className="homepage_agent_agentimg_left"></div>
+      <div className={classnames('homepage_agent')}>
+        <div className={classnames('homepage_agent_center', 'agentCenter')}>
+          <div className={classnames("homepage_agent_agentimg", 'agentImg')}>
+            <div className="homepage_agent_agentimg_left"
+              onMouseEnter={robotImgRightMouseEnter}
+              onMouseLeave={robotImgRightMouseLeave}
+            ></div>
             <div className="homepage_agent_agentimg_right">
               <div className="homepage_agent_agentimg_right_span">低代码构建的</div>
               <div className="homepage_agent_agentimg_right_title">智能体 Agent</div>

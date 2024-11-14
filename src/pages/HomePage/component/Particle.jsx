@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-const ParticleEffect = (props) => {
+const ParticleEffect = () => {
   // const { style } = props;
   // const canvasRef = useRef(null);
   // const particles = useRef([]);
@@ -82,7 +82,7 @@ const ParticleEffect = (props) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     //画布大小
-    canvas.width = window.innerWidth;
+    canvas.width = window.innerWidth - 20; //粒子生成有可能超出视宽 需减去粒子最大生成的宽度
     canvas.height = window.innerHeight;
     const particles = [];
     const maxParticles = 200; //粒子数量
