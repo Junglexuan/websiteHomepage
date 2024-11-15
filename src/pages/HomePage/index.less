@@ -318,7 +318,7 @@
       justify-content: center;
       align-items: center;
       gap: 24px;
-      perspective: 1000px;
+      perspective: 1200px;
       transform-style: preserve-3d;
       @media screen and (max-width: 500px) {
         height: 100px;
@@ -718,6 +718,8 @@
       flex-direction: column;
       gap: 40px;
       width: 100%;
+      perspective: 1200px;
+      transform-style: preserve-3d;
       @media screen and (max-width: 1000px) {
         gap: 20px;
       }
@@ -726,6 +728,8 @@
         justify-content: space-between;
         align-items: center;
         gap: 20px;
+        transform-style: preserve-3d;
+        transform: perspective(1200px);
         @media screen and (max-width: 1000px) {
           flex-direction: column;
         }
@@ -777,7 +781,7 @@
           }
           .homepage_core_top_left_img{
             width: 90%;
-            height: 305px;
+            height: 280px;
             background: url(../../../public/images/coretopleft.png) 100% 100%;
             background-size: contain;
             background-repeat: no-repeat;
@@ -835,7 +839,7 @@
           }
           .homepage_core_top_right_img{
             width: 90%;
-            height: 305px;
+            height: 280px;
             background: url(../../../public/images/analysis.png) 100% 100%;
             background-size: contain;
             background-repeat: no-repeat;
@@ -860,6 +864,7 @@
           flex-direction: column;
         }
         .homepage_core_left{
+          flex: 1;
           &_title{
             display: block;
             font-family: PingFang SC;
@@ -892,7 +897,7 @@
           }
         }
         .homepage_core_right{
-          width: 90%;
+          width: 50%;
           height: 288px;
           background: url(../../../public/images/corebottomright.png) 100% 100%;
           background-size: contain;
@@ -1003,6 +1008,13 @@
           background-image: linear-gradient(88.39deg, #1B68FC 2.3%, #7B4CFF 97.95%);
         }
       }
+      .openBgItem:nth-child(1) { top: -10%; left: -10%; }
+      .openBgItem:nth-child(2) { top: -10%; }
+      .openBgItem:nth-child(3) { top: -10%; left: 10%; }
+      .openBgItem:nth-child(5) { left: 10%; }
+      .openBgItem:nth-child(6) { top: 10%; left: -10%; }
+      .openBgItem:nth-child(7) { top: 10%; }
+      .openBgItem:nth-child(8) { top: 10%; left: 10%; }
       .homepage_open_center_openbg{
         width: 30%;
         height: 158px;
