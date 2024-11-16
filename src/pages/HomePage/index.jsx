@@ -34,20 +34,20 @@ const HomePage = () => {
       const secondScreenTop = secondScreen.getBoundingClientRect().top;/**获取第二屏相对于视口的顶部位置 */
 
       //计算固定元素的Y坐标（在视口内滚动）定位
-      const elementPosition = scrollPosition < maxScroll ? scrollPosition : maxScroll;
-      gsap.to(fixedElement, { //固定导航栏的位置 
-        y: elementPosition,
-        duration: 0, //动画时长
-        ease: 'none', //none匀速 power1.in先慢后快 power1.out先快后慢 power1.inOut先慢后快再慢 数字代表强度
-        zIndex: 100,
-      });
+      // const elementPosition = scrollPosition < maxScroll ? scrollPosition : maxScroll;
+      // gsap.to(fixedElement, { //固定导航栏的位置 
+      //   y: elementPosition,
+      //   duration: 0, //动画时长
+      //   ease: 'none', //none匀速 power1.in先慢后快 power1.out先快后慢 power1.inOut先慢后快再慢 数字代表强度
+      //   zIndex: 100,
+      // });
       if (scrollPosition + 200 >= screenHeight) { //判断是否已经滚动超过一屏(+100是因为整体都向上移动了100px)
         setHasScrolledOneScreen(true);
       } else {
         setHasScrolledOneScreen(false);
       }
 
-      /**计算滚动进度 滚动监听二屏容器滚动进度 旋转跟随二屏滚动进度 */ 
+      /**计算滚动进度 滚动监听二屏容器滚动进度 旋转跟随二屏滚动进度 */
       const progress = Math.min(1, Math.max(0, (window.scrollY - secondScreenTop) / secondScreenHeight));
       /**使用GSAP控制元素的旋转 */
       gsap.to(robotImg.current, {
@@ -67,9 +67,9 @@ const HomePage = () => {
   useEffect(() => {
     if (fixedElementRef.current) { //导航宽度随滚动位置宽度变化
       if (hasScrolledOneScreen) {
-        gsap.to(fixedElementRef.current, { width: '60%', duration: 1 }); //使用GSAP动画改变元素的宽度
+        gsap.to(fixedElementRef.current, { width: '460px', duration: 1 }); //使用GSAP动画改变元素的宽度
       } else {
-        gsap.to(fixedElementRef.current, { width: '74%', duration: 1 }); //恢复原来的宽度
+        gsap.to(fixedElementRef.current, { width: '558px', duration: 1 }); //恢复原来的宽度
       }
     }
   }, [hasScrolledOneScreen]);
@@ -130,17 +130,17 @@ const HomePage = () => {
       onUpdate: (self) => { //回调函数监听滚动进度
         const progress = self.progress.toFixed(3)
         gsap.to('.agentbotA', {
-          scaleX: 0.8 + 0.2*progress, //缩放从0.8 ----> 1
-          scaleY: 0.8 + 0.2*progress,
-          rotateY: 30 - 30*progress, //旋转从30deg ------> 0deg
+          scaleX: 0.8 + 0.2 * progress, //缩放从0.8 ----> 1
+          scaleY: 0.8 + 0.2 * progress,
+          rotateY: 30 - 30 * progress, //旋转从30deg ------> 0deg
           willChange: 'transform', //性能优化 不涉及复杂一般可以不做 提前告知浏览器下一步动作
           transformOrigin: 'center center',
           transformStyle: 'preserve-3d', //保持3D转换
         })
         gsap.to('.agentbotB', {
-          scaleX: 0.8 + 0.2*progress,
-          scaleY: 0.8 + 0.2*progress,
-          rotateY: -30 + 30*progress, //旋转从-30deg ----> 0
+          scaleX: 0.8 + 0.2 * progress,
+          scaleY: 0.8 + 0.2 * progress,
+          rotateY: -30 + 30 * progress, //旋转从-30deg ----> 0
           willChange: 'transform',
           transformOrigin: 'center center',
           transformStyle: 'preserve-3d',
@@ -160,12 +160,12 @@ const HomePage = () => {
       onUpdate: (self) => {
         const progress = self.progress.toFixed(3)
         gsap.to('.coreTopLeft', {
-          opacity: 0.6 + 0.4*progress,
-          translateX: -48 + 48*progress,
-          translateY: 48 - 48*progress,
-          rotate: -8 + 8*progress, //旋转从-8deg ------> 0deg
-          rotateX: 8 - 8*progress,
-          rotateY: 8 - 8*progress,
+          opacity: 0.6 + 0.4 * progress,
+          translateX: -48 + 48 * progress,
+          translateY: 48 - 48 * progress,
+          rotate: -8 + 8 * progress, //旋转从-8deg ------> 0deg
+          rotateX: 8 - 8 * progress,
+          rotateY: 8 - 8 * progress,
           willChange: 'transform,opacity', //性能优化 不涉及复杂一般可以不做 提前告知浏览器下一步动作
           transformOrigin: 'center center',
           transformStyle: 'preserve-3d', //保持3D转换
@@ -184,12 +184,12 @@ const HomePage = () => {
       onUpdate: (self) => {
         const progress = self.progress.toFixed(3)
         gsap.to('.coreTopRight', {
-          opacity: 0.7 + 0.3*progress,
-          translateX: 48 - 48*progress,
-          translateY: 78 - 78*progress,
-          rotate: 7 - 7*progress, //旋转从7deg ------> 0deg
-          rotateX: 14 - 14*progress,
-          rotateY: -13 + 13*progress,
+          opacity: 0.7 + 0.3 * progress,
+          translateX: 48 - 48 * progress,
+          translateY: 78 - 78 * progress,
+          rotate: 7 - 7 * progress, //旋转从7deg ------> 0deg
+          rotateX: 14 - 14 * progress,
+          rotateY: -13 + 13 * progress,
           willChange: 'transform,opacity',
           transformOrigin: 'center center',
           transformStyle: 'preserve-3d', //保持3D转换
@@ -300,6 +300,35 @@ const HomePage = () => {
         });
       }
     })
+
+    //获取跑马灯容器和内容
+    const container = document.querySelector('.caseContent');
+    const content = document.querySelectorAll('.caseItem')
+    //获取内容总宽度
+    const singleWidth = Array.from(content).reduce((acc, item) => acc + item.offsetWidth, 0);
+    const gap = 12; //flex的间距
+    const totalWidth = singleWidth + gap * (content.length - 1);
+    //克隆内容实现无缝滚动
+    const cloneCount = Math.ceil(container.offsetWidth / totalWidth) + 1;
+    for (let i = 0; i < cloneCount; i++) {
+      content.forEach((logo) => {
+        const clone = logo.cloneNode(true);
+        container.appendChild(clone);
+      });
+    }
+    //创建跑马灯动画
+    gsap.to(container, {
+      x: -totalWidth, //从右向左滚动
+      ease: 'none', //匀速
+      duration: 7, //控制滚动速度
+      repeat: -1, //无限循环
+      modifiers: {
+        x: (x) => `${parseFloat(x) % totalWidth}px`, //实现无缝衔接
+      },
+      onStart: () => gsap.set(container, { visibility: 'visible' }), //初始化后显示容器
+      willChange: 'transform',
+    });
+    gsap.ticker.fps(60); //强制设置帧率为60fps
   }, { dependencies: [], scope: homepageContent, revertOnUpdate: false });
 
   const setServiceHandle = () => {
@@ -440,14 +469,14 @@ const HomePage = () => {
                 <span className='homepage_core_top_left_des'>AI大模型+数字化底座，提供一站式应用构建、数据BI、超自动化和智能体能力</span>
                 <Button type='primary' className='homepage_core_top_left_btn'>了解详情</Button>
                 <div className='homepage_core_top_left_img' onMouseEnter={robotImgRightMouseEnter}
-              onMouseLeave={robotImgRightMouseLeave}></div>
+                  onMouseLeave={robotImgRightMouseLeave}></div>
               </div>
               <div className={classnames('homepage_core_top_right', 'coreTopRight')}>
                 <span className='homepage_core_top_right_title'>智慧经营分析大脑</span>
                 <span className='homepage_core_top_right_des'>AI大模型结合数据分析引擎，打造“可视、可控、可动”的智慧经营分析平台</span>
                 <Button type='primary' className='homepage_core_top_right_btn'>了解详情</Button>
                 <div className='homepage_core_top_right_img' onMouseEnter={robotImgRightMouseEnter}
-              onMouseLeave={robotImgRightMouseLeave}></div>
+                  onMouseLeave={robotImgRightMouseLeave}></div>
               </div>
             </div>
             <div className={classnames('homepage_core_bottom', 'coreBottom')}>
@@ -457,7 +486,7 @@ const HomePage = () => {
                 <Button type='primary' className='homepage_core_left_btn'>了解详情</Button>
               </div>
               <div className='homepage_core_right' onMouseEnter={robotImgRightMouseEnter}
-              onMouseLeave={robotImgRightMouseLeave}></div>
+                onMouseLeave={robotImgRightMouseLeave}></div>
             </div>
           </div>
         </div>
@@ -513,7 +542,15 @@ const HomePage = () => {
       <div className='homepage_case'>
         <div className='homepage_case_center'>
           <span className='homepage_case_center_title'>客户案例</span>
-          <div className='homepage_case_center_caseimg'>
+          <div className={classnames('homepage_case_center_caseimg', 'caseImg')}>
+            <div className={classnames('homepage_case_center_casecontent', 'caseContent')}>
+              <div className={classnames('homepage_case_center_casecontent_logo1', 'caseItem')} alt="" />
+              <div className={classnames('homepage_case_center_casecontent_logo2', 'caseItem')} alt="" />
+              <div className={classnames('homepage_case_center_casecontent_logo3', 'caseItem')} alt="" />
+              <div className={classnames('homepage_case_center_casecontent_logo4', 'caseItem')} alt="" />
+              <div className={classnames('homepage_case_center_casecontent_logo5', 'caseItem')} alt="" />
+              <div className={classnames('homepage_case_center_casecontent_logo6', 'caseItem')} alt="" />
+            </div>
             <div className='homepage_case_center_caseleft'></div>
             <div className='homepage_case_center_caseright'></div>
           </div>
