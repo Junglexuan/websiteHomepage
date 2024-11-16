@@ -53,7 +53,7 @@ const HomePage = () => {
       gsap.to(robotImg.current, {
         rotationX: 30 - progress * 30,  //控制X轴的旋转
         opacity: 0.8 + progress * 0.2,
-        ease: 'power3.out',  //设置线性过渡
+        ease: 'power3.inOut',  //设置线性过渡
         duration: 0.1, //动画时长
         willChange: 'transform,opacity'
       });
@@ -67,9 +67,9 @@ const HomePage = () => {
   useEffect(() => {
     if (fixedElementRef.current) { //导航宽度随滚动位置宽度变化
       if (hasScrolledOneScreen) {
-        gsap.to(fixedElementRef.current, { width: '420px', duration: 1 }); //使用GSAP动画改变元素的宽度
+        gsap.to(fixedElementRef.current, { width: '60%', duration: 1 }); //使用GSAP动画改变元素的宽度
       } else {
-        gsap.to(fixedElementRef.current, { width: '558px', duration: 1 }); //恢复原来的宽度
+        gsap.to(fixedElementRef.current, { width: '74%', duration: 1 }); //恢复原来的宽度
       }
     }
   }, [hasScrolledOneScreen]);
@@ -107,7 +107,7 @@ const HomePage = () => {
       end: '+=89%', //结束固定滚动位置
       pin: true, //开启固定
       pinSpacing: false, //禁用固定时的额外空白
-      markers: true, //是否显示开始结束点标线
+      // markers: true, //是否显示开始结束点标线
       willChange: 'transform', //给浏览器设置提前需要变换动画的属性类似反应时间
       onUpdate: (self) => { //回调函数监听滚动进度
         const progress = self.progress
@@ -220,7 +220,7 @@ const HomePage = () => {
     openBgItems.forEach((item, index) => {
       ScrollTrigger.create({
         trigger: '.openCenter',
-        start: 'top center',
+        start: 'top bottom',
         scrub: true,
         once: true,
         duration: 1,
@@ -284,7 +284,7 @@ const HomePage = () => {
 
     ScrollTrigger.create({
       trigger: '.openRelation',
-      start: 'top center', //元素触发位置 视口触发位置
+      start: 'top bottom', //元素触发位置 视口触发位置
       scrub: true,
       once: true,
       duration: 2,
@@ -295,8 +295,8 @@ const HomePage = () => {
           transformOrigin: "center center",  // 缩放从元素的中心开始
         }, {
           scale: 1,  // 最终缩放为1，即元素恢复正常大小
-          ease: "none",  // 使用弹性缓动，使得元素看起来像是从中心弹出
-          duration: .3,  // 动画持续2秒
+          ease: 'expo.inOut',  // 使用弹性缓动，使得元素看起来像是从中心弹出
+          duration: 1,  // 动画持续2秒
         });
       }
     })
