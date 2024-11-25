@@ -23,6 +23,7 @@ const HomePage = () => {
   useEffect(() => {
     /**可替换成useGSAP ScrollTrigger写法 开始做的时候直接写的js 可与trigger写法对比 明显会复杂一点 */
     const fixedElement = fixedElementRef.current; //获取页面和固定元素
+    const pageWidth = document.documentElement.clientWidth; //获取面板的高度
     const pageHeight = document.documentElement.scrollHeight; //获取面板的高度
     //滚动监听导航栏位置固定
     const handleScroll = () => {
@@ -60,20 +61,36 @@ const HomePage = () => {
       });
     };
     window.addEventListener('scroll', handleScroll); //添加滚动事件监听
+    window.addEventListener('resize', recalculate);
+
     return () => { //清理滚动事件监听
       window.removeEventListener('scroll', handleScroll);
+      window.addEventListener('resize', recalculate);
     };
   }, []);
 
   useEffect(() => {
+    recalculate() //滚动监听导航栏缩小宽度
+  }, [hasScrolledOneScreen]);
+  
+  const recalculate = () => {
+    const pageWidth = document.documentElement.clientWidth; //获取面板的高度
     if (fixedElementRef.current) { //导航宽度随滚动位置宽度变化
       if (hasScrolledOneScreen) {
-        gsap.to(fixedElementRef.current, { width: '460px', duration: 1 }); //使用GSAP动画改变元素的宽度
+        if (pageWidth > 1000) {
+          gsap.to(fixedElementRef.current, { width: '580px', duration: 1 }); //使用GSAP动画改变元素的宽度
+        } else {
+          gsap.to(fixedElementRef.current, { width: '90%', duration: 1 }); //使用GSAP动画改变元素的宽度
+        }
       } else {
-        gsap.to(fixedElementRef.current, { width: '558px', duration: 1 }); //恢复原来的宽度
+        if (pageWidth > 1000) {
+          gsap.to(fixedElementRef.current, { width: '660px', duration: 1 }); //恢复原来的宽度
+        } else {
+          gsap.to(fixedElementRef.current, { width: '90%', duration: 1 }); //恢复原来的宽度
+        }
       }
     }
-  }, [hasScrolledOneScreen]);
+  }
 
   useGSAP(() => {
     gsap.config({
@@ -384,8 +401,8 @@ const HomePage = () => {
           <div className={classnames('homepage_quickly_top', 'homepage_quickly_topmin', 'quicklyTop')} ref={fixedElementRef}>
             <div className='homepage_quickly_topleft'></div>
             <div className='homepage_quickly_right'>
-              <span className='homepage_quickly_right_navi'>{language==='CHINESE'?'产品':'PROD'}</span>
-              <span className='homepage_quickly_right_navi'>{language==='CHINESE'?'最新动态':'NEWS'}</span>
+              <span className='homepage_quickly_right_navi'>{language === 'CHINESE' ? '产品' : 'PROD'}</span>
+              <span className='homepage_quickly_right_navi'>{language === 'CHINESE' ? '最新动态' : 'NEWS'}</span>
               <Select
                 className='homepage_quickly_right_select'
                 defaultValue={language}
@@ -417,18 +434,18 @@ const HomePage = () => {
             </div>
           </div>
           <div className={classnames('homepage_quickly_center_copywrite', 'quicklyCharacter')}>
-            <span className='homepage_quickly_center_copywrite_spanai'>{language==='CHINESE'?'快速构建AI':'Quickly build AI'}<span className='homepage_quickly_center_copywrite_agent'>{language==='CHINESE'?'智能体':' agents'}</span></span>
-            <span className='homepage_quickly_center_copywrite_spandes'>{language==='CHINESE'?'由AI驱动的智能应用、数据BI分析、超自动化业务':'AI-driven intelligent applications, data BI analysis, and hyper-automated business'}</span>
+            <span className='homepage_quickly_center_copywrite_spanai'>{language === 'CHINESE' ? '快速构建AI' : 'Quickly build AI'}<span className='homepage_quickly_center_copywrite_agent'>{language === 'CHINESE' ? '智能体' : ' agents'}</span></span>
+            <span className='homepage_quickly_center_copywrite_spandes'>{language === 'CHINESE' ? '由AI驱动的智能应用、数据BI分析、超自动化业务' : 'AI-driven intelligent applications, data BI analysis, and hyper-automated business'}</span>
             <div className={classnames('homepage_quickly_center_copywrite_rocket', 'quicklyRocket')}></div>
           </div>
           <div className={classnames('homepage_quickly_bottom', 'quicklyBtn')}>
             <Button type='primary' className='homepage_quickly_bottom_use'>
-              <span>{language==='CHINESE'?'立即使用':'Get Started'}</span>
+              <span>{language === 'CHINESE' ? '立即使用' : 'Get Started'}</span>
               <span className='homepage_quickly_bottom_usewait'>待上线</span>
             </Button>
-            <Button className={classnames('homepage_quickly_bottom_apps', 'my-element')}>{language==='CHINESE'?'应用市场':'App Market'}</Button>
+            <Button className={classnames('homepage_quickly_bottom_apps', 'my-element')}>{language === 'CHINESE' ? '应用市场' : 'App Market'}</Button>
             <Button className='homepage_quickly_bottom_advice' onClick={setServiceHandle}>
-              <span>{language==='CHINESE'?'我要咨询':'Consult'}</span>
+              <span>{language === 'CHINESE' ? '我要咨询' : 'Consult'}</span>
               {
                 showService ?
                   <div className='homepage_quickly_bottom_advice-img'></div> : null
@@ -441,14 +458,14 @@ const HomePage = () => {
         <ParticleEffect />
         <div className={classnames('homepage_apps_center')}>
           <div className='homepage_apps_top'>
-            <span className='homepage_apps_top_ai'>{language==='CHINESE'?'创造属于你的AI应用':'Create your own AI application'}</span>
-            <span className='homepage_apps_top_easy'>{language==='CHINESE'?'一站式AI智能体搭建，轻松玩转和运营AIGC激发无限潜能':'One-stop AI intelligent body construction, easy to play and operate AIGC to stimulate unlimited potential'}</span>
+            <span className='homepage_apps_top_ai'>{language === 'CHINESE' ? '创造属于你的AI应用' : 'Create your own AI application'}</span>
+            <span className='homepage_apps_top_easy'>{language === 'CHINESE' ? '一站式AI智能体搭建，轻松玩转和运营AIGC激发无限潜能' : 'One-stop AI intelligent body construction, easy to play and operate AIGC to stimulate unlimited potential'}</span>
           </div>
           <div className={classnames("homepage_apps_top_robotimg", 'robotImg')} ref={robotImg}>
             <div className="homepage_apps_top_robotimg_left">
-              <span className="homepage_apps_top_robotimg_left_span">{language==='CHINESE'?'特定领域的':'Specific fields'}</span>
-              <span className="homepage_apps_top_robotimg_left_title">{language==='CHINESE'?'智能对话机器人':'Intelligent dialog robot'}</span>
-              <span className="homepage_apps_top_robotimg_left_des">{language==='CHINESE'?'通过可视化的提示词编排和数据集嵌入，零代码即可快速构建对话机器人或AI助理，并可持续优化对话策略，革新人机交互体验':'Through visual prompt word arrangement and data set embedding, you can quickly build a conversational robot or AI assistant with zero code, and continuously optimize the conversation strategy to innovate the human-computer interaction experience.'}</span>
+              <span className="homepage_apps_top_robotimg_left_span">{language === 'CHINESE' ? '特定领域的' : 'Specific fields'}</span>
+              <span className="homepage_apps_top_robotimg_left_title">{language === 'CHINESE' ? '智能对话机器人' : 'Intelligent dialog robot'}</span>
+              <span className="homepage_apps_top_robotimg_left_des">{language === 'CHINESE' ? '通过可视化的提示词编排和数据集嵌入，零代码即可快速构建对话机器人或AI助理，并可持续优化对话策略，革新人机交互体验' : 'Through visual prompt word arrangement and data set embedding, you can quickly build a conversational robot or AI assistant with zero code, and continuously optimize the conversation strategy to innovate the human-computer interaction experience.'}</span>
             </div>
             <div
               className={classnames('homepage_apps_top_robotimg_right', 'robotImgRight')}
@@ -465,9 +482,9 @@ const HomePage = () => {
               onMouseLeave={robotImgRightMouseLeave}
             ></div>
             <div className="homepage_agent_agentimg_right">
-              <div className="homepage_agent_agentimg_right_span">{language==='CHINESE'?'低代码构建的':'Built with lowcode'}</div>
-              <div className="homepage_agent_agentimg_right_title">{language==='CHINESE'?'智能体 Agent':'Excellent Agent'}</div>
-              <div className="homepage_agent_agentimg_right_des">{language==='CHINESE'?'通过整合提示词、业务数据集与插件工具，并借助可视化和低代码的流程编排，构建面向特定业务场景的半自主智能体，从而释放个人和企业的生产力':'By integrating prompt words, business data sets and plug-in tools, and using visualization and low-code process orchestration, semi-autonomous intelligent entities for specific business scenarios are built to unleash the productivity of individuals and enterprises'}</div>
+              <div className="homepage_agent_agentimg_right_span">{language === 'CHINESE' ? '低代码构建的' : 'Built with lowcode'}</div>
+              <div className="homepage_agent_agentimg_right_title">{language === 'CHINESE' ? '智能体 Agent' : 'Excellent Agent'}</div>
+              <div className="homepage_agent_agentimg_right_des">{language === 'CHINESE' ? '通过整合提示词、业务数据集与插件工具，并借助可视化和低代码的流程编排，构建面向特定业务场景的半自主智能体，从而释放个人和企业的生产力' : 'By integrating prompt words, business data sets and plug-in tools, and using visualization and low-code process orchestration, semi-autonomous intelligent entities for specific business scenarios are built to unleash the productivity of individuals and enterprises'}</div>
             </div>
           </div>
         </div>
@@ -478,8 +495,8 @@ const HomePage = () => {
             <div className={classnames("homepage_agentrobot_agent", 'agentbotA')}></div>
             <div className={classnames("homepage_agentrobot_robot", 'agentbotB')}>
               <div className="homepage_agentrobot_robot_top">
-                <div className="homepage_agentrobot_robot_top_title">{language==='CHINESE'?'智能设备/机器人交互':'Smart device/robot interaction'}</div>
-                <div className="homepage_agentrobot_robot_top_des">{language==='CHINESE'?'基于大模型的深度学习和自然语言处理能力，实现智能穿戴设备对话式交互。语义感知AI交互体验，成为用户':'Based on the deep learning and natural language processing capabilities of large models, conversational interaction of smart wearable devices is realized. Semantic perception AI interactive experience becomes the user '}<span>{language==='CHINESE'?'真正的智能伴侣':'A true smart companion'}</span></div>
+                <div className="homepage_agentrobot_robot_top_title">{language === 'CHINESE' ? '智能设备/机器人交互' : 'Smart device/robot interaction'}</div>
+                <div className="homepage_agentrobot_robot_top_des">{language === 'CHINESE' ? '基于大模型的深度学习和自然语言处理能力，实现智能穿戴设备对话式交互。语义感知AI交互体验，成为用户' : 'Based on the deep learning and natural language processing capabilities of large models, conversational interaction of smart wearable devices is realized. Semantic perception AI interactive experience becomes the user '}<span>{language === 'CHINESE' ? '真正的智能伴侣' : 'A true smart companion'}</span></div>
               </div>
               <div className="homepage_agentrobot_robot_bottom"></div>
             </div>
@@ -488,30 +505,30 @@ const HomePage = () => {
       </div>
       <div className='homepage_core'>
         <div className='homepage_core_center'>
-          <div className='homepage_core_title'>{language==='CHINESE'?'核心产品':'Core Products'}</div>
+          <div className='homepage_core_title'>{language === 'CHINESE' ? '核心产品' : 'Core Products'}</div>
           <div className='homepage_core_content'>
             <div className={classnames('homepage_core_top', 'coreTop')}>
               <div className={classnames('homepage_core_top_left', 'coreTopLeft')}>
-                <span className='homepage_core_top_left_title'>{language==='CHINESE'?'海狸超级应用工厂':'Beaver super app factory'}</span>
-                <span className='homepage_core_top_left_des'>{language==='CHINESE'?'AI大模型+数字化底座，提供一站式应用构建、数据BI、超自动化和智能体能力':'AI big model + digital base, providing one-stop application construction, data BI, hyper-automation and intelligent agent capabilities'}</span>
-                <Button type='primary' className='homepage_core_top_left_btn'>{language==='CHINESE'?'了解详情':'Learn more'}</Button>
+                <span className='homepage_core_top_left_title'>{language === 'CHINESE' ? '海狸超级应用工厂' : 'Beaver super app factory'}</span>
+                <span className='homepage_core_top_left_des'>{language === 'CHINESE' ? 'AI大模型+数字化底座，提供一站式应用构建、数据BI、超自动化和智能体能力' : 'AI big model + digital base, providing one-stop application construction, data BI, hyper-automation and intelligent agent capabilities'}</span>
+                <Button type='primary' className='homepage_core_top_left_btn'>{language === 'CHINESE' ? '了解详情' : 'Learn more'}</Button>
                 <div className='homepage_core_top_left_img' onMouseEnter={robotImgRightMouseEnter}
                   onMouseLeave={robotImgRightMouseLeave}></div>
               </div>
               <div className={classnames('homepage_core_top_right', 'coreTopRight')}>
-                <span className='homepage_core_top_right_title'>{language==='CHINESE'?'智慧经营分析大脑':'Smart business analysis brain'}</span>
-                <span className='homepage_core_top_right_des'>{language==='CHINESE'?'AI大模型结合数据分析引擎，打造“可视、可控、可动”的智慧经营分析平台':'AI big model combined with data analysis engine to create a "visual, controllable and dynamic" intelligent business analysis platform'}</span>
-                <Button type='primary' className='homepage_core_top_right_btn'>{language==='CHINESE'?'了解详情':'Learn more'}</Button>
+                <span className='homepage_core_top_right_title'>{language === 'CHINESE' ? '智慧经营分析大脑' : 'Smart business analysis brain'}</span>
+                <span className='homepage_core_top_right_des'>{language === 'CHINESE' ? 'AI大模型结合数据分析引擎，打造“可视、可控、可动”的智慧经营分析平台' : 'AI big model combined with data analysis engine to create a "visual, controllable and dynamic" intelligent business analysis platform'}</span>
+                <Button type='primary' className='homepage_core_top_right_btn'>{language === 'CHINESE' ? '了解详情' : 'Learn more'}</Button>
                 <div className='homepage_core_top_right_img' onMouseEnter={robotImgRightMouseEnter}
                   onMouseLeave={robotImgRightMouseLeave}></div>
               </div>
             </div>
             <div className={classnames('homepage_core_bottom', 'coreBottom')}>
               <div className='homepage_core_left'>
-                <span className='homepage_core_left_title'>{language==='CHINESE'?'超自动化助手':'Hyperautomated assistant'}</span>
-                <span className='homepage_core_left_des'>{language==='CHINESE'?'AI大模型驱动，一句话帮您自动完成 流程任务':'AI big model driven, one sentence to help you automatically complete the process tasks'}
+                <span className='homepage_core_left_title'>{language === 'CHINESE' ? '超自动化助手' : 'Hyperautomated assistant'}</span>
+                <span className='homepage_core_left_des'>{language === 'CHINESE' ? 'AI大模型驱动，一句话帮您自动完成 流程任务' : 'AI big model driven, one sentence to help you automatically complete the process tasks'}
                 </span>
-                <Button type='primary' className='homepage_core_left_btn'>{language==='CHINESE'?'了解详情':'Learn more'}</Button>
+                <Button type='primary' className='homepage_core_left_btn'>{language === 'CHINESE' ? '了解详情' : 'Learn more'}</Button>
               </div>
               <div className='homepage_core_right' onMouseEnter={robotImgRightMouseEnter}
                 onMouseLeave={robotImgRightMouseLeave}></div>
@@ -521,46 +538,46 @@ const HomePage = () => {
       </div>
       <div className='homepage_open'>
         <div className='homepage_open_center'>
-          <span className='homepage_open_center_title'>{language==='CHINESE'?'开箱即用':'Ready to use'}</span>
-          <span className='homepage_open_center_des'>{language==='CHINESE'?'你的最佳效能CP组合，你说我做':'Your best CP combination, you say I do'}</span>
+          <span className='homepage_open_center_title'>{language === 'CHINESE' ? '开箱即用' : 'Ready to use'}</span>
+          <span className='homepage_open_center_des'>{language === 'CHINESE' ? '你的最佳效能CP组合，你说我做' : 'Your best CP combination, you say I do'}</span>
           <div className={classnames('homepage_open_center_openimg', 'openCenter')}>
             <div className={classnames('homepage_open_center_openbg', 'openBgItem')}>
               <div className='homepage_open_center_openbg_num1'></div>
-              <span className='homepage_open_center_openbg_title'>{language==='CHINESE'?'工艺改进':'Process Improve'}</span>
-              <span className='homepage_open_center_openbg_des'>{language==='CHINESE'?'分析生产过程中的数据优化工艺参数，提升产品历量和生产效率':'improve product quality and production efficiency'}</span>
+              <span className='homepage_open_center_openbg_title'>{language === 'CHINESE' ? '工艺改进' : 'Process Improve'}</span>
+              <span className='homepage_open_center_openbg_des'>{language === 'CHINESE' ? '分析生产过程中的数据优化工艺参数，提升产品历量和生产效率' : 'improve product quality and production efficiency'}</span>
             </div>
             <div className={classnames('homepage_open_center_openbg', 'openBgItem')}>
               <div className='homepage_open_center_openbg_num2'></div>
-              <span className='homepage_open_center_openbg_title'>{language==='CHINESE'?'语音助手与操作指导':'Voice Operation'}</span>
-              <span className='homepage_open_center_openbg_des'>{language==='CHINESE'?'语音对话为操作工人提供事实的操作指导和支持':'Voice dialogue provides operators with factual operational guidance and support'}</span>
+              <span className='homepage_open_center_openbg_title'>{language === 'CHINESE' ? '语音助手与操作指导' : 'Voice Operation'}</span>
+              <span className='homepage_open_center_openbg_des'>{language === 'CHINESE' ? '语音对话为操作工人提供事实的操作指导和支持' : 'Voice dialogue provides operators with factual operational guidance and support'}</span>
             </div>
             <div className={classnames('homepage_open_center_openbg', 'openBgItem')}>
               <div className='homepage_open_center_openbg_num3'></div>
-              <span className='homepage_open_center_openbg_title'>{language==='CHINESE'?'质量控制':'Quality Control'}</span>
-              <span className='homepage_open_center_openbg_des'>{language==='CHINESE'?'自动检测产品缺陷，减少工人检查成本':'Automatically detect product defects and reduce worker inspection costs'}</span>
+              <span className='homepage_open_center_openbg_title'>{language === 'CHINESE' ? '质量控制' : 'Quality Control'}</span>
+              <span className='homepage_open_center_openbg_des'>{language === 'CHINESE' ? '自动检测产品缺陷，减少工人检查成本' : 'Automatically detect product defects and reduce worker inspection costs'}</span>
             </div>
             <div className='home_page_center_openvicter'>
-              <span>{language==='CHINESE'?'零壹视界':'Zero One Vision'} Agents</span>
+              <span>{language === 'CHINESE' ? '零壹视界' : 'Zero One Vision'} Agents</span>
             </div>
             <div className={classnames('homepage_open_center_openbg', 'openBgItem')}>
               <div className='homepage_open_center_openbg_num4'></div>
-              <span className='homepage_open_center_openbg_title'>{language==='CHINESE'?'生产线优化':'ProdLine Optimize'}</span>
-              <span className='homepage_open_center_openbg_des'>{language==='CHINESE'?'形成生产数据报告，优化成产流程':'Generate production data reports and optimize production processes'}</span>
+              <span className='homepage_open_center_openbg_title'>{language === 'CHINESE' ? '生产线优化' : 'ProdLine Optimize'}</span>
+              <span className='homepage_open_center_openbg_des'>{language === 'CHINESE' ? '形成生产数据报告，优化成产流程' : 'Generate production data reports and optimize production processes'}</span>
             </div>
             <div className={classnames('homepage_open_center_openbg', 'openBgItem')}>
               <div className='homepage_open_center_openbg_num5'></div>
-              <span className='homepage_open_center_openbg_title'>{language==='CHINESE'?'供应链管理':'SupplyCh Manage'}</span>
-              <span className='homepage_open_center_openbg_des'>{language==='CHINESE'?'产品需求，优化库存水平表单填写及调度实现自动化':'Product demand, optimize inventory levels, automate form filling and scheduling'}</span>
+              <span className='homepage_open_center_openbg_title'>{language === 'CHINESE' ? '供应链管理' : 'SupplyCh Manage'}</span>
+              <span className='homepage_open_center_openbg_des'>{language === 'CHINESE' ? '产品需求，优化库存水平表单填写及调度实现自动化' : 'Product demand, optimize inventory levels, automate form filling and scheduling'}</span>
             </div>
             <div className={classnames('homepage_open_center_openbg', 'openBgItem')}>
               <div className='homepage_open_center_openbg_num6'></div>
-              <span className='homepage_open_center_openbg_title'>{language==='CHINESE'?'产品设计与开发':'ProDes Develop'}</span>
-              <span className='homepage_open_center_openbg_des'>{language==='CHINESE'?'提供创新的设计方案，缩短产品开发周期':'Provide innovative design solutions and shorten product development cycle'}</span>
+              <span className='homepage_open_center_openbg_title'>{language === 'CHINESE' ? '产品设计与开发' : 'ProDes Develop'}</span>
+              <span className='homepage_open_center_openbg_des'>{language === 'CHINESE' ? '提供创新的设计方案，缩短产品开发周期' : 'Provide innovative design solutions and shorten product development cycle'}</span>
             </div>
             <div className={classnames('homepage_open_center_openbg', 'openBgItem')}>
               <div className='homepage_open_center_openbg_num7'></div>
-              <span className='homepage_open_center_openbg_title'>{language==='CHINESE'?'智能仓库管理':'SmartWh Manage'}</span>
-              <span className='homepage_open_center_openbg_des'>{language==='CHINESE'?'可以优化仓库布局，提高库存管理效率，减少物流成本':'It can optimize warehouse layout, improve inventory management efficiency, reduce logistics costs'}</span>
+              <span className='homepage_open_center_openbg_title'>{language === 'CHINESE' ? '智能仓库管理' : 'SmartWh Manage'}</span>
+              <span className='homepage_open_center_openbg_des'>{language === 'CHINESE' ? '可以优化仓库布局，提高库存管理效率，减少物流成本' : 'It can optimize warehouse layout, improve inventory management efficiency, reduce logistics costs'}</span>
             </div>
           </div>
           <div className={classnames('homepage_open_center_openrelationimg', 'openRelation')}></div>
@@ -569,7 +586,7 @@ const HomePage = () => {
       <div className='homepage_case'>
         <div className='homepage_case_center'>
           <div className='homepage_case_center_eyes'></div>
-          <span className='homepage_case_center_title'>{language==='CHINESE'?'客户案例':'Customer Cases'}</span>
+          <span className='homepage_case_center_title'>{language === 'CHINESE' ? '客户案例' : 'Customer Cases'}</span>
           <div className={classnames('homepage_case_center_caseimg', 'caseImg')}>
             <div className={classnames('homepage_case_center_casecontent', 'caseContent')}>
               <div className={classnames('homepage_case_center_casecontent_logo1', 'caseItem')} alt="" />
@@ -599,8 +616,8 @@ const HomePage = () => {
       </div>
       <div className='homepage_find'>
         <div className='homepage_find_center'>
-          <span className='homepage_find_center_title'>{language==='CHINESE'?'想要了解生成式AI的魅力？即刻开始发现之旅':'Want to know more about the charm of generative AI? Start your journey of discovery now'}</span>
-          <Button type='primary' className='homepage_find_center_btn'>{language==='CHINESE'?'去了解':'Find out more'}</Button>
+          <span className='homepage_find_center_title'>{language === 'CHINESE' ? '想要了解生成式AI的魅力？即刻开始发现之旅' : 'Want to know more about the charm of generative AI? Start your journey of discovery now'}</span>
+          <Button type='primary' className='homepage_find_center_btn'>{language === 'CHINESE' ? '去了解' : 'Find out more'}</Button>
         </div>
       </div>
       <div className='homepage_tail'>
@@ -608,19 +625,19 @@ const HomePage = () => {
           <div className='homepage_tail_center_top'>
             <div className='homepage_tail_left'></div>
             <div className='homepage_tail_middle'>
-              <span className='homepage_tail_middle_reason'>{language==='CHINESE'?'为什么关注我们':'Why follow us'}</span>
-              <span className='homepage_tail_middle_platform'>{language==='CHINESE'?'海狸超级应用工厂是值得信赖的企业级低代码平台':'Beaver Super Application Factory is a trustworthy enterprise-level low-code platform'}</span>
+              <span className='homepage_tail_middle_reason'>{language === 'CHINESE' ? '为什么关注我们' : 'Why follow us'}</span>
+              <span className='homepage_tail_middle_platform'>{language === 'CHINESE' ? '海狸超级应用工厂是值得信赖的企业级低代码平台' : 'Beaver Super Application Factory is a trustworthy enterprise-level low-code platform'}</span>
               <div className='homepage_tail_middle_qrcode'></div>
             </div>
             <div className='homepage_tail_right'>
-              <span className='homepage_tail_right_reason'>{language==='CHINESE'?'联系方式':'Contact Details'}</span>
-              <span className='homepage_tail_right_span'>{language==='CHINESE'?'北京市海淀区上地三街9号C座5层C608':'Room C608, 5th Floor, Building C, No. 9 Shangdi 3rd Street, Haidian District, Beijing'}</span>
-              <span className='homepage_tail_right_span'>{language==='CHINESE'?'手机':'Mobile phone'}: 15295555501</span>
-              <span className='homepage_tail_right_span'>{language==='CHINESE'?'邮件':'Mail'}：support@17gobig.com</span>
+              <span className='homepage_tail_right_reason'>{language === 'CHINESE' ? '联系方式' : 'Contact Details'}</span>
+              <span className='homepage_tail_right_span'>{language === 'CHINESE' ? '北京市海淀区上地三街9号C座5层C608' : 'Room C608, 5th Floor, Building C, No. 9 Shangdi 3rd Street, Haidian District, Beijing'}</span>
+              <span className='homepage_tail_right_span'>{language === 'CHINESE' ? '手机' : 'Mobile phone'}: 15295555501</span>
+              <span className='homepage_tail_right_span'>{language === 'CHINESE' ? '邮件' : 'Mail'}：support@17gobig.com</span>
             </div>
           </div>
           <div className='homepage_tail_center_bottom'>
-            <span>{language==='CHINESE'?'版权所有 © 2022—2024 北京零壹视界科技有限公司 丨 ICP证京B2-20160559 丨 网站备案号：京ICP备16025414号-1 丨 法律声明':'Copyright © 2022—2024 Beijing Zero One Vision Technology Co., Ltd. | ICP Certificate Beijing B2-20160559 | Website Registration Number: Beijing ICP No. 16025414-1 | Legal Statement'}</span>
+            <span>{language === 'CHINESE' ? '版权所有 © 2022—2024 北京零壹视界科技有限公司 丨 ICP证京B2-20160559 丨 网站备案号：京ICP备16025414号-1 丨 法律声明' : 'Copyright © 2022—2024 Beijing Zero One Vision Technology Co., Ltd. | ICP Certificate Beijing B2-20160559 | Website Registration Number: Beijing ICP No. 16025414-1 | Legal Statement'}</span>
           </div>
         </div>
       </div>

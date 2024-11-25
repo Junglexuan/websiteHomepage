@@ -42,6 +42,7 @@
   position: fixed;
   top: 80px;
   z-index: 1000;
+  box-sizing: border-box;
 }
 @media screen and (max-width: 600px) {
   .homepage .homepage_quickly .homepage_quickly_center .homepage_quickly_top {
@@ -646,6 +647,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 .homepage_agentrobot_center {
   width: 1000px;
@@ -766,6 +768,7 @@
   justify-content: center;
   align-items: flex-start;
   padding-bottom: 100px;
+  overflow: hidden;
 }
 .homepage_core .homepage_core_center {
   width: 1000px;
@@ -1022,6 +1025,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  overflow: hidden;
 }
 .homepage_open .homepage_open_center {
   width: 1000px;
@@ -1294,6 +1298,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  overflow: hidden;
 }
 .homepage_case .homepage_case_center {
   width: 1000px;
@@ -1303,6 +1308,12 @@
   align-items: center;
   padding: 40px 0;
   position: relative;
+}
+@media screen and (max-width: 1000px) {
+  .homepage_case .homepage_case_center {
+    margin: 20px;
+    padding: 0;
+  }
 }
 .homepage_case .homepage_case_center_eyes {
   width: 300px;
@@ -1470,7 +1481,7 @@
 }
 .homepage_case .homepage_case_center_caseimg .homepage_case_center_caseleft {
   width: 146px;
-  height: 556px;
+  height: 68px;
   background-size: contain;
   background-repeat: no-repeat;
   background: url(../../../public/images/caseleft.png);
@@ -1480,7 +1491,7 @@
 }
 .homepage_case .homepage_case_center_caseimg .homepage_case_center_caseright {
   width: 146px;
-  height: 556px;
+  height: 68px;
   background-size: contain;
   background-repeat: no-repeat;
   background: url(../../../public/images/caseright.png);
@@ -1496,6 +1507,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  overflow: hidden;
 }
 .homepage_find .homepage_find_center {
   width: 1000px;
@@ -1532,6 +1544,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 .homepage_tail .homepage_tail_center {
   width: 100%;
