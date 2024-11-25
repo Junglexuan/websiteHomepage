@@ -320,12 +320,36 @@ const HomePage = () => {
     gsap.to(container, {
       x: -totalWidth, //从右向左滚动
       ease: 'none', //匀速
-      duration: 7, //控制滚动速度
+      duration: 12, //控制滚动速度
       repeat: -1, //无限循环
       modifiers: {
         x: (x) => `${parseFloat(x) % totalWidth}px`, //实现无缝衔接
       },
       onStart: () => gsap.set(container, { visibility: 'visible' }), //初始化后显示容器
+      willChange: 'transform',
+    });
+
+    //获取二排跑马灯容器和内容
+    const container1 = document.querySelector('.caseContent1');
+    const content1 = document.querySelectorAll('.caseItem1')
+    const singleWidth1 = Array.from(content1).reduce((acc, item) => acc + item.offsetWidth, 0);
+    const totalWidth1 = singleWidth1 + gap * (content1.length - 1);
+    const cloneCount1 = Math.ceil(container1.offsetWidth / totalWidth1) + 1;
+    for (let i = 0; i < cloneCount1; i++) {
+      content1.forEach((logo) => {
+        const clone = logo.cloneNode(true);
+        container1.appendChild(clone);
+      });
+    }
+    gsap.to(container1, {
+      x: totalWidth,
+      ease: 'none',
+      duration: 12,
+      repeat: -1,
+      modifiers: {
+        x: (x) => `${parseFloat(x) % totalWidth}px`,
+      },
+      onStart: () => gsap.set(container1, { visibility: 'visible' }),
       willChange: 'transform',
     });
     gsap.ticker.fps(60); //强制设置帧率为60fps
@@ -550,6 +574,19 @@ const HomePage = () => {
               <div className={classnames('homepage_case_center_casecontent_logo4', 'caseItem')} alt="" />
               <div className={classnames('homepage_case_center_casecontent_logo5', 'caseItem')} alt="" />
               <div className={classnames('homepage_case_center_casecontent_logo6', 'caseItem')} alt="" />
+              <div className={classnames('homepage_case_center_casecontent_logo7', 'caseItem')} alt="" />
+            </div>
+            <div className='homepage_case_center_caseleft'></div>
+            <div className='homepage_case_center_caseright'></div>
+          </div>
+          <div className={classnames('homepage_case_center_caseimg', 'caseImg1')}>
+            <div className={classnames('homepage_case_center_casecontent1', 'caseContent1')}>
+              <div className={classnames('homepage_case_center_casecontent1_logo8', 'caseItem1')} alt="" />
+              <div className={classnames('homepage_case_center_casecontent1_logo9', 'caseItem1')} alt="" />
+              <div className={classnames('homepage_case_center_casecontent1_logo10', 'caseItem1')} alt="" />
+              <div className={classnames('homepage_case_center_casecontent1_logo11', 'caseItem1')} alt="" />
+              <div className={classnames('homepage_case_center_casecontent1_logo12', 'caseItem1')} alt="" />
+              <div className={classnames('homepage_case_center_casecontent1_logo13', 'caseItem1')} alt="" />
             </div>
             <div className='homepage_case_center_caseleft'></div>
             <div className='homepage_case_center_caseright'></div>

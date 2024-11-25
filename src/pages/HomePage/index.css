@@ -20,6 +20,7 @@
   justify-content: space-evenly;
   align-items: center;
   position: relative;
+  z-index: 999;
 }
 @media screen and (max-width: 1000px) {
   .homepage .homepage_quickly .homepage_quickly_center {
@@ -1319,6 +1320,7 @@
   background-position: center;
   transform: translateZ(0);
   will-change: transform;
+  margin-bottom: 12px;
   overflow: hidden;
 }
 .homepage_case .homepage_case_center_caseimg .homepage_case_center_casecontent {
@@ -1331,7 +1333,7 @@
   visibility: hidden;
 }
 .homepage_case .homepage_case_center_caseimg .homepage_case_center_casecontent_logo1 {
-  width: 130px;
+  width: 150px;
   height: 68px;
   background: url(../../../public/images/logoCase1.png) 100% 100%;
   background-size: contain;
@@ -1347,7 +1349,7 @@
   flex-shrink: 0;
 }
 .homepage_case .homepage_case_center_caseimg .homepage_case_center_casecontent_logo3 {
-  width: 130px;
+  width: 135px;
   height: 68px;
   background: url(../../../public/images/logoCase3.png) 100% 100%;
   background-size: contain;
@@ -1355,7 +1357,7 @@
   flex-shrink: 0;
 }
 .homepage_case .homepage_case_center_caseimg .homepage_case_center_casecontent_logo4 {
-  width: 156px;
+  width: 118px;
   height: 68px;
   background: url(../../../public/images/logoCase4.png) 100% 100%;
   background-size: contain;
@@ -1363,7 +1365,7 @@
   flex-shrink: 0;
 }
 .homepage_case .homepage_case_center_caseimg .homepage_case_center_casecontent_logo5 {
-  width: 130px;
+  width: 98px;
   height: 68px;
   background: url(../../../public/images/logoCase5.png) 100% 100%;
   background-size: contain;
@@ -1371,9 +1373,74 @@
   flex-shrink: 0;
 }
 .homepage_case .homepage_case_center_caseimg .homepage_case_center_casecontent_logo6 {
-  width: 152px;
+  width: 151px;
   height: 68px;
   background: url(../../../public/images/logoCase6.png) 100% 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+.homepage_case .homepage_case_center_caseimg .homepage_case_center_casecontent_logo7 {
+  width: 92px;
+  height: 68px;
+  background: url(../../../public/images/logoCase7.png) 100% 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+.homepage_case .homepage_case_center_caseimg .homepage_case_center_casecontent1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  transform: translateZ(0);
+  will-change: transform;
+  visibility: hidden;
+}
+.homepage_case .homepage_case_center_caseimg .homepage_case_center_casecontent1_logo8 {
+  width: 220px;
+  height: 68px;
+  background: url(../../../public/images/logoCase8.png) 100% 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+.homepage_case .homepage_case_center_caseimg .homepage_case_center_casecontent1_logo9 {
+  width: 200px;
+  height: 68px;
+  background: url(../../../public/images/logoCase9.png) 100% 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+.homepage_case .homepage_case_center_caseimg .homepage_case_center_casecontent1_logo10 {
+  width: 102px;
+  height: 68px;
+  background: url(../../../public/images/logoCase10.png) 100% 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+.homepage_case .homepage_case_center_caseimg .homepage_case_center_casecontent1_logo11 {
+  width: 178px;
+  height: 68px;
+  background: url(../../../public/images/logoCase11.png) 100% 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+.homepage_case .homepage_case_center_caseimg .homepage_case_center_casecontent1_logo12 {
+  width: 112px;
+  height: 68px;
+  background: url(../../../public/images/logoCase12.png) 100% 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+.homepage_case .homepage_case_center_caseimg .homepage_case_center_casecontent1_logo13 {
+  width: 108px;
+  height: 68px;
+  background: url(../../../public/images/logoCase13.png) 100% 100%;
   background-size: contain;
   background-repeat: no-repeat;
   flex-shrink: 0;
