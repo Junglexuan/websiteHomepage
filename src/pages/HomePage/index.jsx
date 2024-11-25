@@ -75,6 +75,13 @@ const HomePage = () => {
   
   const recalculate = () => {
     const pageWidth = document.documentElement.clientWidth; //获取面板的高度
+    const secondScreenImg = document.querySelector('.homepage_agent_agentimg_left')
+    // console.log('secondScreenImg: ', secondScreenImg);
+    // if(pageWidth<440){
+    //   secondScreenImg.style.display = 'none'
+    // }else{
+    //   secondScreenImg.style.display = 'block'
+    // }
     if (fixedElementRef.current) { //导航宽度随滚动位置宽度变化
       if (hasScrolledOneScreen) {
         if (pageWidth > 1000) {
@@ -122,7 +129,7 @@ const HomePage = () => {
     ScrollTrigger.create({
       trigger: '.homepageApps', //滚动完二屏视口固定
       start: 'top top', //二屏顶部开始固定
-      end: '+=89%', //结束固定滚动位置
+      end: '+=97%', //结束固定滚动位置
       pin: true, //开启固定
       pinSpacing: false, //禁用固定时的额外空白
       // markers: true, //是否显示开始结束点标线
@@ -496,7 +503,7 @@ const HomePage = () => {
             <div className={classnames("homepage_agentrobot_robot", 'agentbotB')}>
               <div className="homepage_agentrobot_robot_top">
                 <div className="homepage_agentrobot_robot_top_title">{language === 'CHINESE' ? '智能设备/机器人交互' : 'Smart device/robot interaction'}</div>
-                <div className="homepage_agentrobot_robot_top_des">{language === 'CHINESE' ? '基于大模型的深度学习和自然语言处理能力，实现智能穿戴设备对话式交互。语义感知AI交互体验，成为用户' : 'Based on the deep learning and natural language processing capabilities of large models, conversational interaction of smart wearable devices is realized. Semantic perception AI interactive experience becomes the user '}<span>{language === 'CHINESE' ? '真正的智能伴侣' : 'A true smart companion'}</span></div>
+                <div className="homepage_agentrobot_robot_top_des" title={language==='ENGLISH'?'Based on the deep learning and natural language processing capabilities of large models, conversational interaction of smart wearable devices is realized. Semantic perception AI interactive experience becomes the user A true smart companion':''}>{language === 'CHINESE' ? '基于大模型的深度学习和自然语言处理能力，实现智能穿戴设备对话式交互。语义感知AI交互体验，成为用户' : 'Based on the deep learning and natural language processing capabilities of large models, conversational interaction of smart wearable devices is realized. Semantic perception AI interactive experience becomes the user '}<span>{language === 'CHINESE' ? '真正的智能伴侣' : 'A true smart companion'}</span></div>
               </div>
               <div className="homepage_agentrobot_robot_bottom"></div>
             </div>

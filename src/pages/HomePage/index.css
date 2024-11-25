@@ -449,10 +449,11 @@
   color: transparent;
   background-image: linear-gradient(90.95deg, #1B68FC 0.26%, #7B4CFF 32.75%);
 }
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1000px) {
   .homepage_apps .homepage_apps_center .homepage_apps_top_robotimg_left_span {
     font-size: 2rem;
     line-height: 2rem;
+    margin-top: 0;
   }
 }
 @media screen and (max-width: 600px) {
@@ -467,7 +468,7 @@
   font-family: PingFang SC;
   font-size: 2.5rem;
   font-weight: 600;
-  line-height: 9.5rem;
+  line-height: 6.5rem;
   text-align: left;
   color: #10152e;
 }
@@ -527,7 +528,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transform: translateY(-100px);
+  padding-bottom: 60px;
 }
 @media screen and (max-width: 1000px) {
   .homepage_agent .homepage_agent_center {
@@ -545,7 +546,7 @@
   align-items: center;
   gap: 20px;
   box-sizing: border-box;
-  padding: 40px 40px 40px 0;
+  padding: 40px 40px 0;
 }
 @media screen and (max-width: 600px) {
   .homepage_agent .homepage_agent_center .homepage_agent_agentimg {
@@ -557,12 +558,11 @@
 }
 .homepage_agent .homepage_agent_center .homepage_agent_agentimg_left {
   width: 50%;
-  height: 100%;
+  height: 400px;
   background: url(../../../public/images/agentimg.png) 100% 100%;
   background-size: contain;
   background-repeat: no-repeat;
   /* 三屏图片居中展示  */
-  margin-bottom: 80px;
   transform: translateX(-20px);
 }
 @media screen and (max-width: 600px) {
@@ -573,11 +573,11 @@
 .homepage_agent .homepage_agent_center .homepage_agent_agentimg_right {
   width: 50%;
   height: 100%;
+  box-sizing: border-box;
 }
 @media screen and (max-width: 600px) {
   .homepage_agent .homepage_agent_center .homepage_agent_agentimg_right {
     width: 100%;
-    padding-left: 60px;
   }
 }
 .homepage_agent .homepage_agent_center .homepage_agent_agentimg_right_span {
@@ -593,10 +593,11 @@
   color: transparent;
   background-image: linear-gradient(90.95deg, #1B68FC 0.26%, #7B4CFF 32.75%);
 }
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1000px) {
   .homepage_agent .homepage_agent_center .homepage_agent_agentimg_right_span {
     font-size: 2rem;
     line-height: 2rem;
+    margin-top: 0;
   }
 }
 @media screen and (max-width: 600px) {
@@ -735,6 +736,11 @@
   line-height: 2rem;
   text-align: left;
   color: #ffffff;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 @media screen and (max-width: 600px) {
   .homepage_agentrobot .homepage_agentrobot_agentrobotimg .homepage_agentrobot_robot_top_des {
@@ -1254,6 +1260,7 @@
   background: url(../../../public/images/openrelation.png);
   background-size: contain;
   background-repeat: no-repeat;
+  margin-top: 40px;
 }
 @media screen and (max-width: 1000px) {
   .homepage_open .homepage_open_center_openrelationimg {
