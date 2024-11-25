@@ -18,3 +18,8 @@ export const items = [
     ),
   },
 ];
+
+export const translateLang = {
+  中文: 'CHINESE',
+  英文: 'ENGLISH',
+}

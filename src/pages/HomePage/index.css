@@ -1302,6 +1302,29 @@
   justify-content: flex-start;
   align-items: center;
   padding: 40px 0;
+  position: relative;
+}
+.homepage_case .homepage_case_center_eyes {
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -150px;
+  margin-top: -150px;
+  background: radial-gradient(circle, rgba(28, 102, 252, 0.15) 0%, rgba(255, 0, 255, 0) 70%);
+  border-radius: 50%;
+  animation: pulse 2s infinite alternate;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
 }
 .homepage_case .homepage_case_center_title {
   font-family: PingFang SC;
@@ -1572,7 +1595,7 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
-  text-align: center;
+  text-align: left;
   color: #616a7a;
   margin: 20px 0;
 }
