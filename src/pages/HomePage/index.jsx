@@ -404,7 +404,7 @@ const HomePage = () => {
             <div className='homepage_quickly_right'>
               <span className='homepage_quickly_right_navi'>{language === 'CHINESE' ? '产品' : 'PROD'}</span>
               <span className='homepage_quickly_right_navi'>{language === 'CHINESE' ? '最新动态' : 'NEWS'}</span>
-              <Select
+              {/* <Select
                 className='homepage_quickly_right_select'
                 defaultValue={language}
                 // onChange={(v) => setLanguage(v)}
@@ -412,7 +412,7 @@ const HomePage = () => {
                   { value: 'CHINESE', label: '中文' },
                   { value: 'ENGLISH', label: 'ENGLISH' },
                 ]}
-              />
+              /> */}
             </div>
             <div className='homepage_quickly_rightmin'>
               <Select
@@ -424,14 +424,13 @@ const HomePage = () => {
                   { value: 'ENGLISH', label: 'ENGLISH' },
                 ]}
               />
-              <Dropdown menu={{ items }} trigger={['click']} rootClassName='homepage_quickly_rightmin_trop'>
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              {/* <Dropdown menu={{ items }} trigger={['click']} rootClassName='homepage_quickly_rightmin_trop'>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
                     <MenuOutlined />
                   </Space>
                 </a>
-              </Dropdown>
+              </Dropdown> */}
             </div>
           </div>
           <div className={classnames('homepage_quickly_center_copywrite', 'quicklyCharacter')}>
