@@ -460,7 +460,7 @@
 // 3
 .homepage_agent{
   width: 100%;
-  height: 100%;
+  // height: 100%; //适配滚动不压缩不设高度
   background: rgba(27, 104, 252, 1);
   background-blend-mode: overlay;
   // transform: translateY(-100px);
@@ -491,7 +491,8 @@
       align-items: center;
       gap: 20px;
       box-sizing: border-box;
-      padding: 40px 40px 0;
+      padding: 0 40px;
+      margin-bottom: 120px;
       @media screen and (max-width: 600px) {
         display: flex;
         flex-direction: column-reverse;
@@ -500,13 +501,13 @@
       }
       &_left{
         width: 50%;
-        height: 400px;
+        height: 380px;
         background: url(../../../public/images/agentimg.png) 100% 100%;
         background-size: contain;
         background-repeat: no-repeat;
         /* 三屏图片居中展示  */
         // margin-bottom: 80px;
-        transform: translateX(-20px);
+        transform: translateX(-56px);
         @media screen and (max-width: 600px) {
           width: 100%;
         }
@@ -533,12 +534,12 @@
           @media screen and (max-width: 1000px) {
             font-size: 2rem;
             line-height: 2rem;
-            margin-top: 0;
+            margin-top: 12px;
           }
           @media screen and (max-width: 600px) {
             font-size: 2rem;
             line-height: 2rem;
-            margin-top: 0;
+            margin-top: 12px;
           }
         }
         &_title{
@@ -734,17 +735,19 @@
         gap: 20px;
       }
       .homepage_core_top{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        display: grid;
+        grid-auto-rows: 589px;
+        grid-template-rows: repeat(1,589px);
+        grid-template-columns: repeat(2,minmax(200px,1fr));
         gap: 20px;
         transform-style: preserve-3d;
         transform: perspective(1200px);
         @media screen and (max-width: 1000px) {
-          flex-direction: column;
+          // flex-direction: column;
+          grid-template-columns: repeat(1,minmax(100%,1fr));
         }
         &_left{
-          width: 50%;
+          // width: 50%;
           height: 589px;
           background-size: contain;
           background-repeat: no-repeat;
@@ -802,7 +805,7 @@
           }
         }
         &_right{
-          width: 50%;
+          // width: 50%;
           height: 589px;
           background-size: contain;
           background-repeat: no-repeat;

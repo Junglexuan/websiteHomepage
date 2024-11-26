@@ -513,7 +513,6 @@
 }
 .homepage_agent {
   width: 100%;
-  height: 100%;
   background: #1b68fc;
   background-blend-mode: overlay;
   display: flex;
@@ -546,7 +545,8 @@
   align-items: center;
   gap: 20px;
   box-sizing: border-box;
-  padding: 40px 40px 0;
+  padding: 0 40px;
+  margin-bottom: 120px;
 }
 @media screen and (max-width: 600px) {
   .homepage_agent .homepage_agent_center .homepage_agent_agentimg {
@@ -558,12 +558,12 @@
 }
 .homepage_agent .homepage_agent_center .homepage_agent_agentimg_left {
   width: 50%;
-  height: 400px;
+  height: 380px;
   background: url(../../../public/images/agentimg.png) 100% 100%;
   background-size: contain;
   background-repeat: no-repeat;
   /* 三屏图片居中展示  */
-  transform: translateX(-20px);
+  transform: translateX(-56px);
 }
 @media screen and (max-width: 600px) {
   .homepage_agent .homepage_agent_center .homepage_agent_agentimg_left {
@@ -597,14 +597,14 @@
   .homepage_agent .homepage_agent_center .homepage_agent_agentimg_right_span {
     font-size: 2rem;
     line-height: 2rem;
-    margin-top: 0;
+    margin-top: 12px;
   }
 }
 @media screen and (max-width: 600px) {
   .homepage_agent .homepage_agent_center .homepage_agent_agentimg_right_span {
     font-size: 2rem;
     line-height: 2rem;
-    margin-top: 0;
+    margin-top: 12px;
   }
 }
 .homepage_agent .homepage_agent_center .homepage_agent_agentimg_right_title {
@@ -817,20 +817,20 @@
   }
 }
 .homepage_core .homepage_core_center .homepage_core_content .homepage_core_top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-auto-rows: 589px;
+  grid-template-rows: repeat(1, 589px);
+  grid-template-columns: repeat(2, minmax(200px, 1fr));
   gap: 20px;
   transform-style: preserve-3d;
   transform: perspective(1200px);
 }
 @media screen and (max-width: 1000px) {
   .homepage_core .homepage_core_center .homepage_core_content .homepage_core_top {
-    flex-direction: column;
+    grid-template-columns: repeat(1, minmax(100%, 1fr));
   }
 }
 .homepage_core .homepage_core_center .homepage_core_content .homepage_core_top_left {
-  width: 50%;
   height: 589px;
   background-size: contain;
   background-repeat: no-repeat;
@@ -892,7 +892,6 @@
   bottom: 0;
 }
 .homepage_core .homepage_core_center .homepage_core_content .homepage_core_top_right {
-  width: 50%;
   height: 589px;
   background-size: contain;
   background-repeat: no-repeat;

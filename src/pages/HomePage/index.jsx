@@ -6,11 +6,10 @@ import classnames from 'classnames';
 import { items, translateLang, } from './utils';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap-trial/ScrollTrigger';
-import { ScrollSmoother } from 'gsap-trial/ScrollSmoother';
 import { useGSAP } from "@gsap/react";
 import ParticleEffect from './component/Particle';
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const HomePage = () => {
   const [showService, setShowService] = useState(false) //是否展示我要咨询的图片
@@ -76,30 +75,25 @@ const HomePage = () => {
   const recalculate = () => {
     const pageWidth = document.documentElement.clientWidth; //获取面板的高度
     const secondScreenImg = document.querySelector('.homepage_agent_agentimg_left')
-    // console.log('secondScreenImg: ', secondScreenImg);
-    // if(pageWidth<440){
-    //   secondScreenImg.style.display = 'none'
-    // }else{
-    //   secondScreenImg.style.display = 'block'
-    // }
     if (fixedElementRef.current) { //导航宽度随滚动位置宽度变化
       if (hasScrolledOneScreen) {
         if (pageWidth > 1000) {
           gsap.to(fixedElementRef.current, { width: '580px', duration: 1 }); //使用GSAP动画改变元素的宽度
         } else {
-          gsap.to(fixedElementRef.current, { width: '90%', duration: 1 }); //使用GSAP动画改变元素的宽度
+          gsap.to(fixedElementRef.current, { width: '98%', duration: 1 }); //使用GSAP动画改变元素的宽度
         }
       } else {
         if (pageWidth > 1000) {
           gsap.to(fixedElementRef.current, { width: '660px', duration: 1 }); //恢复原来的宽度
         } else {
-          gsap.to(fixedElementRef.current, { width: '90%', duration: 1 }); //恢复原来的宽度
+          gsap.to(fixedElementRef.current, { width: '98%', duration: 1 }); //恢复原来的宽度
         }
       }
     }
   }
 
   useGSAP(() => {
+    const pageWidth = document.documentElement.clientWidth; //获取面板的高度
     gsap.config({
       trialWarn: false,
     });
@@ -129,7 +123,7 @@ const HomePage = () => {
     ScrollTrigger.create({
       trigger: '.homepageApps', //滚动完二屏视口固定
       start: 'top top', //二屏顶部开始固定
-      end: '+=97%', //结束固定滚动位置
+      end: pageWidth>1000?'746px':'660px', //结束固定滚动位置
       pin: true, //开启固定
       pinSpacing: false, //禁用固定时的额外空白
       // markers: true, //是否显示开始结束点标线
@@ -413,7 +407,7 @@ const HomePage = () => {
               <Select
                 className='homepage_quickly_right_select'
                 defaultValue={language}
-                onChange={(v) => setLanguage(v)}
+                // onChange={(v) => setLanguage(v)}
                 options={[
                   { value: 'CHINESE', label: '中文' },
                   { value: 'ENGLISH', label: 'ENGLISH' },
@@ -424,7 +418,7 @@ const HomePage = () => {
               <Select
                 className='homepage_quickly_right_select'
                 defaultValue={language}
-                onChange={(v) => setLanguage(v)}
+                // onChange={(v) => setLanguage(v)}
                 options={[
                   { value: 'CHINESE', label: '中文' },
                   { value: 'ENGLISH', label: 'ENGLISH' },
