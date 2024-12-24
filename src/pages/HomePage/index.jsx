@@ -8,6 +8,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap-trial/ScrollTrigger';
 import { useGSAP } from "@gsap/react";
 import ParticleEffect from './component/Particle';
+import {Link} from 'dva/router';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -395,6 +396,13 @@ const HomePage = () => {
       ease: "power2.out", //缓动效果
     });
   };
+
+  /**
+   * 跳转低码平台登陆地址
+   */
+  const lowcodeLogin = () => {
+    window.open('http://demo.binarysee.cn/zov-lowcode/login')
+  }
   return (
     <div className='homepage' ref={homepageContent}>
       <div className='homepage_quickly'>
@@ -403,7 +411,7 @@ const HomePage = () => {
             <div className='homepage_quickly_topleft'></div>
             <div className='homepage_quickly_right'>
               <span className='homepage_quickly_right_navi'>{language === 'CHINESE' ? '产品' : 'PROD'}</span>
-              <span className='homepage_quickly_right_navi'>{language === 'CHINESE' ? '最新动态' : 'NEWS'}</span>
+              <Link to={'/'} className='homepage_quickly_right_navi'>{language === 'CHINESE' ? '最新动态' : 'NEWS'}</Link>
               {/* <Select
                 className='homepage_quickly_right_select'
                 defaultValue={language}
@@ -415,7 +423,7 @@ const HomePage = () => {
               /> */}
             </div>
             <div className='homepage_quickly_rightmin'>
-              <Select
+              {/* <Select
                 className='homepage_quickly_right_select'
                 defaultValue={language}
                 // onChange={(v) => setLanguage(v)}
@@ -423,14 +431,14 @@ const HomePage = () => {
                   { value: 'CHINESE', label: '中文' },
                   { value: 'ENGLISH', label: 'ENGLISH' },
                 ]}
-              />
-              {/* <Dropdown menu={{ items }} trigger={['click']} rootClassName='homepage_quickly_rightmin_trop'>
+              /> */}
+              <Dropdown menu={{ items }} trigger={['click']} rootClassName='homepage_quickly_rightmin_trop'>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
                     <MenuOutlined />
                   </Space>
                 </a>
-              </Dropdown> */}
+              </Dropdown>
             </div>
           </div>
           <div className={classnames('homepage_quickly_center_copywrite', 'quicklyCharacter')}>
@@ -439,11 +447,11 @@ const HomePage = () => {
             <div className={classnames('homepage_quickly_center_copywrite_rocket', 'quicklyRocket')}></div>
           </div>
           <div className={classnames('homepage_quickly_bottom', 'quicklyBtn')}>
-            <Button type='primary' className='homepage_quickly_bottom_use'>
+            <Button type='primary' className='homepage_quickly_bottom_use' onClick={lowcodeLogin}>
               <span>{language === 'CHINESE' ? '立即使用' : 'Get Started'}</span>
-              <span className='homepage_quickly_bottom_usewait'>待上线</span>
+              {/* <span className='homepage_quickly_bottom_usewait'>待上线</span> */}
             </Button>
-            <Button className={classnames('homepage_quickly_bottom_apps', 'my-element')}>{language === 'CHINESE' ? '应用市场' : 'App Market'}</Button>
+            {/* <Button className={classnames('homepage_quickly_bottom_apps', 'my-element')}>{language === 'CHINESE' ? '应用市场' : 'App Market'}</Button> */}
             <Button className='homepage_quickly_bottom_advice' onClick={setServiceHandle}>
               <span>{language === 'CHINESE' ? '我要咨询' : 'Consult'}</span>
               {
@@ -456,6 +464,8 @@ const HomePage = () => {
       </div>
       <div id="secondScreen" className={classnames('homepage_apps', 'homepageApps')} style={{ position: 'relative' }}>
         <ParticleEffect />
+        {/* <FrostedGlassEffect /> */}
+        {/* <div className={classnames('flowing-background', 'flowing-background')}></div> */}
         <div className={classnames('homepage_apps_center')}>
           <div className='homepage_apps_top'>
             <span className='homepage_apps_top_ai'>{language === 'CHINESE' ? '创造属于你的AI应用' : 'Create your own AI application'}</span>
@@ -526,7 +536,7 @@ const HomePage = () => {
             <div className={classnames('homepage_core_bottom', 'coreBottom')}>
               <div className='homepage_core_left'>
                 <span className='homepage_core_left_title'>{language === 'CHINESE' ? '超自动化助手' : 'Hyperautomated assistant'}</span>
-                <span className='homepage_core_left_des'>{language === 'CHINESE' ? 'AI大模型驱动，一句话帮您自动完成 流程任务' : 'AI big model driven, one sentence to help you automatically complete the process tasks'}
+                <span className='homepage_core_left_des'>{language === 'CHINESE' ? 'AI大模型驱动，一句话帮您自动完成流程任务' : 'AI big model driven, one sentence to help you automatically complete the process tasks'}
                 </span>
                 <Button type='primary' className='homepage_core_left_btn'>{language === 'CHINESE' ? '了解详情' : 'Learn more'}</Button>
               </div>
@@ -625,8 +635,8 @@ const HomePage = () => {
           <div className='homepage_tail_center_top'>
             <div className='homepage_tail_left'></div>
             <div className='homepage_tail_middle'>
-              <span className='homepage_tail_middle_reason'>{language === 'CHINESE' ? '为什么关注我们' : 'Why follow us'}</span>
-              <span className='homepage_tail_middle_platform'>{language === 'CHINESE' ? '海狸超级应用工厂是值得信赖的企业级低代码平台' : 'Beaver Super Application Factory is a trustworthy enterprise-level low-code platform'}</span>
+              <span className='homepage_tail_middle_reason'>{language === 'CHINESE' ? '关注零壹视界' : 'Follow Zero One Vision'}</span>
+              <span className='homepage_tail_middle_platform'>{language === 'CHINESE' ? '我们将拥有超级智能和新一代系统' : 'We will have superintelligence and a new generation of systems'}</span>
               <div className='homepage_tail_middle_qrcode'></div>
             </div>
             <div className='homepage_tail_right'>
